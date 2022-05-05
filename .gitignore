@@ -1,0 +1,7 @@
+*~
+*.tar*
+*.zip
+/attachments/[0-9]*
+/cache/data_*.php
+/useravatars/av-*
+/useravatars/avatar_*
