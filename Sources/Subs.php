@@ -1291,7 +1291,7 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 			array(
 				'tag' => 'iurl',
 				'type' => 'unparsed_content',
-				'content' => '<a href="$1" class="bbc_link">$1</a>',
+				'content' => '<a href="$1" class="bbc_link" rel="nofollow">$1</a>',
 				'validate' => function(&$tag, &$data, $disabled)
 				{
 					$data = strtr($data, array('<br />' => ''));
@@ -1302,7 +1302,7 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 			array(
 				'tag' => 'iurl',
 				'type' => 'unparsed_equals',
-				'before' => '<a href="$1" class="bbc_link">',
+				'before' => '<a href="$1" class="bbc_link" rel="nofollow">',
 				'after' => '</a>',
 				'validate' => function(&$tag, &$data, $disabled)
 				{
@@ -1581,7 +1581,7 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 			array(
 				'tag' => 'url',
 				'type' => 'unparsed_content',
-				'content' => '<a href="$1" class="bbc_link" target="_blank" rel="noopener noreferrer">$1</a>',
+				'content' => '<a href="$1" class="bbc_link" target="_blank" rel="nofollow noopener noreferrer">$1</a>',
 				'validate' => function(&$tag, &$data, $disabled)
 				{
 					if (strpos($data, 'http://') !== 0 && strpos($data, 'https://') !== 0)
@@ -1591,7 +1591,7 @@ function parse_bbc($message, $smileys = true, $cache_id = '', $parse_tags = arra
 			array(
 				'tag' => 'url',
 				'type' => 'unparsed_equals',
-				'before' => '<a href="$1" class="bbc_link" target="_blank" rel="noopener noreferrer">',
+				'before' => '<a href="$1" class="bbc_link" target="_blank" rel="nofollow noopener noreferrer">',
 				'after' => '</a>',
 				'validate' => function(&$tag, &$data, $disabled)
 				{
