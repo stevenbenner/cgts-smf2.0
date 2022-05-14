@@ -647,6 +647,7 @@ function registerMember(&$regOptions, $return_errors = false)
 		'date_registered' => time(),
 		'member_ip' => $regOptions['interface'] == 'admin' ? '127.0.0.1' : $user_info['ip'],
 		'member_ip2' => $regOptions['interface'] == 'admin' ? '127.0.0.1' : $_SERVER['BAN_CHECK_IP'],
+		'is_spammer' => empty($regOptions['spammer']) ? 0 : $regOptions['spammer'],
 		'validation_code' => $validation_code,
 		'real_name' => $regOptions['username'],
 		'personal_text' => $modSettings['default_personal_text'],
@@ -1224,7 +1225,7 @@ function list_getMembers($start, $items_per_page, $sort, $where, $where_params =
 
 	$request = $smcFunc['db_query']('', '
 		SELECT
-			mem.id_member, mem.member_name, mem.real_name, mem.email_address, mem.icq, mem.aim, mem.yim, mem.msn, mem.member_ip, mem.member_ip2, mem.last_login,
+			mem.id_member, mem.member_name, mem.real_name, mem.email_address, mem.icq, mem.aim, mem.yim, mem.msn, mem.member_ip, mem.member_ip2, mem.last_login, mem.is_spammer,
 			mem.posts, mem.is_activated, mem.date_registered, mem.id_group, mem.additional_groups, mg.group_name
 		FROM {db_prefix}members AS mem
 			LEFT JOIN {db_prefix}membergroups AS mg ON (mg.id_group = mem.id_group)

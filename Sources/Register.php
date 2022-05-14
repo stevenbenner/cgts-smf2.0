@@ -403,6 +403,19 @@ function Register2($verifiedOpenID = false)
 		'theme_vars' => array(),
 	);
 
+	// Is Spammer? Then should be approval
+	if ($modSettings['stopspammer_enable'])
+	{
+		require_once($sourcedir . '/StopSpammer.php');
+		if ($regOptions['spammer'] = checkDBSpammer($user_info['ip'], $_POST['user'], $_POST['email']))
+		{
+			$regOptions['require'] = 'approval';
+			$modSettings['registration_method'] = 2;
+			if ($regOptions['spammer'] != 8)
+				updateSettings(array('stopspammer_count' => ++$modSettings['stopspammer_count']), true);
+		}
+	}
+
 	// Include the additional options that might have been filled in.
 	foreach ($possible_strings as $var)
 		if (isset($_POST[$var]))
