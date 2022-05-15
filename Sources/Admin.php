@@ -354,6 +354,20 @@ function AdminMain()
 						'log' => array($txt['ban_log']),
 					),
 				),
+				'httpBL' => array(
+					'label' => $txt['httpBL_title'],
+					'file' => 'httpBL_2_Config.php',
+					'function' => 'httpBL_Admin',
+					'icon' => 'modifications.gif',
+					'permission' => 'admin_forum',
+					'subsections' => array(
+						'config' => array($txt['httpBL_config']),
+						'viewlog' => array($txt['httpBL_viewlog']),
+						'viewlogpass' => array($txt['httpBL_viewlogpass']),
+						'viewlogerror' => array($txt['httpBL_viewlogerror']),
+						'helping' => array($txt['httpBL_helping']),
+					),
+				),
 				'paidsubscribe' => array(
 					'label' => $txt['paid_subscriptions'],
 					'enabled' => in_array('ps', $context['admin_features']),

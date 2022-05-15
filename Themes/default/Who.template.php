@@ -15,6 +15,15 @@ function template_main()
 {
 	global $context, $settings, $options, $scripturl, $txt;
 
+	// Include OS & Browser Detection if it's installed and enabled
+	global $sourcedir, $modSettings;
+	$os_browser_exists = FALSE;
+	if (file_exists($sourcedir.'/os_browser_detection.php') && $modSettings['httpBL_view_os_whosonline'])
+	{
+		require_once($sourcedir . '/os_browser_detection.php');
+		$os_browser_exists = TRUE;
+	}
+
 	// Display the table header and linktree.
 	echo '
 	<div class="main_section" id="whos_online">
@@ -77,6 +86,37 @@ function template_main()
 		if (!empty($member['ip']))
 			echo '
 								(<a href="' . $scripturl . '?action=', ($member['is_guest'] ? 'trackip' : 'profile;area=tracking;sa=ip;u=' . $member['id']), ';searchip=' . $member['ip'] . '">' . $member['ip'] . '</a>)';
+
+			// OS & Browser Detection
+			// Parse the user agent only if OS & Browser Detection is installed and enabled
+			if ($os_browser_exists)
+				$os_browser_detected = parse_user_agent($member['query']['USER_AGENT']);
+			// Display only if allowed
+			if (allowedTo('view_os_browser') && $os_browser_exists){
+				if ($os_browser_detected['system'] || $os_browser_detected['browser']){ //Do not display if both are unknown
+					echo '<br />';
+					if ($os_browser_detected['system']) {
+						echo '
+									<strong>', $txt['OS_Browser_OS'], ':</strong>
+									<br /><img src="', $settings['default_images_url'], '/os_browser_detection/icon_', $os_browser_detected['system_icon'], '.png" align="top" alt="', $os_browser_detected['system'], '" /> ', $os_browser_detected['system'], '<br />';
+					} else {
+						echo '
+									<strong>', $txt['OS_Browser_OS'], ':</strong>
+									<br /><img src="', $settings['default_images_url'], '/os_browser_detection/icon_unknown.png" align="top" alt="', $txt['OS_Browser_Unknown'], '" /> ', $txt['OS_Browser_Unknown'], '<br />';
+					}
+					
+					if ($os_browser_detected['browser']) {
+						echo '
+									<strong>', $txt['OS_Browser_Browser'], ':</strong>
+									<br /><img src="', $settings['default_images_url'], '/os_browser_detection/icon_', $os_browser_detected['browser_icon'], '.png" align="top" alt="', $os_browser_detected['browser'], '" /> ', $os_browser_detected['browser'];
+					} else {
+						echo '
+									<strong>', $txt['OS_Browser_Browser'], ':</strong>
+									<br /><img src="', $settings['default_images_url'], '/os_browser_detection/icon_unknown.png" align="top" alt="', $txt['OS_Browser_Unknown'], '" /> ', $txt['OS_Browser_Unknown'];
+					}
+				
+				}
+			}
 
 		echo '
 							</td>

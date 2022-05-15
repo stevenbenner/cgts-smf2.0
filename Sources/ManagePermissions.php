@@ -1461,6 +1461,7 @@ function loadAllPermissions($loadType = 'classic')
 	*/
 	$permissionList = array(
 		'membergroup' => array(
+			'httpBL_free_pass' => array(false, 'general', 'view_basic_info'),
 			'view_stats' => array(false, 'general', 'view_basic_info'),
 			'view_mlist' => array(false, 'general', 'view_basic_info'),
 			'who_view' => array(false, 'general', 'view_basic_info'),
@@ -2167,6 +2168,7 @@ function loadIllegalGuestPermissions()
 	global $context;
 
 	$context['non_guest_permissions'] = array(
+		'httpBL_free_pass',
 		'delete_replies',
 		'karma_edit',
 		'poll_add_own',

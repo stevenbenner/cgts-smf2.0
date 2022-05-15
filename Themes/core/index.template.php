@@ -400,6 +400,21 @@ function template_html_below()
 {
 	global $context, $settings, $options, $scripturl, $txt, $modSettings;
 
+	echo '';
+
+	/*****************
+	** httpBL START **
+	*****************/
+	global $sourcedir, $modSettings;
+	if ($modSettings['httpBL_enable']) {
+		require_once($sourcedir . '/httpBL_Subs.php');
+		$honeyLink = httpBL_honeylink($modSettings['httpBL_honeyPot_link'], $modSettings['httpBL_honeyPot_word']);
+		echo $honeyLink;
+	}
+	/*****************
+	**  httpBL END  **
+	*****************/
+
 	echo '
 </body></html>';
 }

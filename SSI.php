@@ -143,6 +143,21 @@ loadUserSettings();
 // Load the current user's permissions....
 loadPermissions();
 
+	// Before we do anything else with this user we check projecthoneypot to see if it's a spammer. MOD httpBL
+	// But do it only if we are not coming from the file warning.php
+	global $boardurl, $httpBL_warning;
+	if ($modSettings['httpBL_enable'] && !isset($httpBL_warning))
+	{
+		require_once($sourcedir . '/httpBL_Subs.php');
+		$response = httpBL_dnslookup($user_info['ip'], $modSettings['httpBL_honeyPot_key']);
+		if ($response)
+		{
+			$_SESSION['response'] = $response;
+			header('Location: '. $boardurl .'/warning.php');
+			exit();
+		}
+	}
+
 // Load the current or SSI theme. (just use $ssi_theme = id_theme;)
 loadTheme(isset($ssi_theme) ? (int) $ssi_theme : 0);
 
