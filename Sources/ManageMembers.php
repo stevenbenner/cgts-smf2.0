@@ -226,7 +226,7 @@ function ViewMemberlist()
 		}
 	}
 
-	if ($context['sub_action'] == 'query' && (empty($_POST) || ((isset($_POST['spammers_checks']) || isset($_POST['spammers_report'])) && !empty($_POST['delete']))))
+	if ($context['sub_action'] == 'query' && empty($_POST) || ((isset($_POST['spammers_checks']) || isset($_POST['spammers_report'])) && !empty($_POST['delete'])))
 	{
 		if (!empty($_REQUEST['params']))
 		{
@@ -521,11 +521,11 @@ function ViewMemberlist()
 					'value' => $txt['username'],
 				),
 				'data' => array(
-					'function' => create_function('$rowData', '
+					'function' => function($rowData) {
 						global $scripturl;
-						$url = strtr($scripturl, array(\'%\' => \'%%\')) . \'?action=profile;u=\' . $rowData[\'id_member\'];
-						return sprintfspamer($rowData, $url, \'member_name\', 2);
-					'),
+						$url = strtr($scripturl, array('%' => '%%')) . '?action=profile;u=' . $rowData['id_member'];
+						return sprintfspamer($rowData, $url, 'member_name', 2);
+					},
 				),
 				'sort' => array(
 					'default' => 'member_name',
@@ -537,11 +537,11 @@ function ViewMemberlist()
 					'value' => $txt['display_name'],
 				),
 				'data' => array(
-					'function' => create_function('$rowData', '
+					'function' => function($rowData) {
 						global $scripturl;
-						$url = strtr($scripturl, array(\'%\' => \'%%\')) . \'?action=profile;u=\' . $rowData[\'id_member\'];
-						return sprintfspamer($rowData, $url, \'real_name\', 0);
-					'),
+						$url = strtr($scripturl, array('%' => '%%')) . '?action=profile;u=' . $rowData['id_member'];
+						return sprintfspamer($rowData, $url, 'real_name', 0);
+					},
 				),
 				'sort' => array(
 					'default' => 'real_name',
@@ -553,11 +553,11 @@ function ViewMemberlist()
 					'value' => $txt['email_address'],
 				),
 				'data' => array(
-					'function' => create_function('$rowData', '
+					'function' => function($rowData) {
 						global $scripturl;
-						$url = \'mailto:\' . $rowData[\'email_address\'];
-						return sprintfspamer($rowData, $url, \'email_address\', 3);
-					'),
+						$url = 'mailto:' . $rowData['email_address'];
+						return sprintfspamer($rowData, $url, 'email_address', 3);
+					},
 				),
 				'sort' => array(
 					'default' => 'email_address',
@@ -569,11 +569,11 @@ function ViewMemberlist()
 					'value' => $txt['ip_address'],
 				),
 				'data' => array(
-					'function' => create_function('$rowData', '
+					'function' => function($rowData) {
 						global $scripturl;
-						$url = strtr($scripturl, array(\'%\' => \'%%\')) . \'?action=trackip;searchip=\' . $rowData[\'member_ip\'];
-						return sprintfspamer($rowData, $url, \'member_ip\', 1);
-					'),
+						$url = strtr($scripturl, array('%' => '%%')) . '?action=trackip;searchip=' . $rowData['member_ip'];
+						return sprintfspamer($rowData, $url, 'member_ip', 1);
+					},
 				),
 				'sort' => array(
 					'default' => 'INET_ATON(member_ip)',
@@ -674,8 +674,8 @@ function ViewMemberlist()
 				'position' => 'below_table_data',
 				'value' => '
 					<label>' . $txt['in_stop_forum_spam'] . '</label>
-					<input type="submit" name="spammers_checks" value="' . $txt['spammers_checks'] . '" onclick="return confirm(\'' . $txt['confirm_spammers_checks'] . '\');" />
-					<input type="submit" name="spammers_report" value="' . $txt['spammers_report'] . '" onclick="return confirm(\'' . $txt['confirm_spammers_report'] . '\');" />',
+					<input type="submit" class="button_submit" name="spammers_checks" value="' . $txt['spammers_checks'] . '" onclick="return confirm(\'' . $txt['confirm_spammers_checks'] . '\');" />
+					<input type="submit" class="button_submit" name="spammers_report" value="' . $txt['spammers_report'] . '" onclick="return confirm(\'' . $txt['confirm_spammers_report'] . '\');" />',
 				'class' => 'titlebg','titlebg',
 				'style' => 'text-align: right;',
 			),
@@ -904,11 +904,11 @@ function MembersAwaitingActivation()
 					'value' => $txt['username'],
 				),
 				'data' => array(
-					'function' => create_function('$rowData', '
+					'function' => function($rowData) {
 						global $scripturl;
-						$url = strtr($scripturl, array(\'%\' => \'%%\')) . \'?action=profile;u=\' . $rowData[\'id_member\'];
-						return sprintfspamer($rowData, $url, \'member_name\', 2);
-					'),
+						$url = strtr($scripturl, array('%' => '%%')) . '?action=profile;u=' . $rowData['id_member'];
+						return sprintfspamer($rowData, $url, 'member_name', 2);
+					},
 				),
 				'sort' => array(
 					'default' => 'member_name',
@@ -920,11 +920,11 @@ function MembersAwaitingActivation()
 					'value' => $txt['email_address'],
 				),
 				'data' => array(
-					'function' => create_function('$rowData', '
+					'function' => function($rowData) {
 						global $scripturl;
-						$url = \'mailto:\' . $rowData[\'email_address\'];
-						return sprintfspamer($rowData, $url, \'email_address\', 3);
-					'),
+						$url = 'mailto:' . $rowData['email_address'];
+						return sprintfspamer($rowData, $url, 'email_address', 3);
+					},
 				),
 				'sort' => array(
 					'default' => 'email_address',
@@ -936,11 +936,11 @@ function MembersAwaitingActivation()
 					'value' => $txt['ip_address'],
 				),
 				'data' => array(
-					'function' => create_function('$rowData', '
+					'function' => function($rowData) {
 						global $scripturl;
-						$url = strtr($scripturl, array(\'%\' => \'%%\')) . \'?action=trackip;searchip=\' . $rowData[\'member_ip\'];
-						return sprintfspamer($rowData, $url, \'member_ip\', 1);
-					'),
+						$url = strtr($scripturl, array('%' => '%%')) . '?action=trackip;searchip=' . $rowData['member_ip'];
+						return sprintfspamer($rowData, $url, 'member_ip', 1);
+					},
 				),
 				'sort' => array(
 					'default' => 'INET_ATON(member_ip)',
@@ -1046,8 +1046,8 @@ function MembersAwaitingActivation()
 				'position' => 'below_table_data',
 				'value' => '
 					<label>' . $txt['in_stop_forum_spam'] . '</label>
-					<input type="submit" name="spammers_checks" value="' . $txt['spammers_checks'] . '" onclick="return confirm(\'' . $txt['confirm_spammers_checks'] . '\');" />
-					<input type="submit" name="spammers_report" value="' . $txt['spammers_report'] . '" onclick="return confirm(\'' . $txt['confirm_spammers_report'] . '\');" />',
+					<input type="submit" class="button_submit" name="spammers_checks" value="' . $txt['spammers_checks'] . '" onclick="return confirm(\'' . $txt['confirm_spammers_checks'] . '\');" />
+					<input type="submit" class="button_submit" name="spammers_report" value="' . $txt['spammers_report'] . '" onclick="return confirm(\'' . $txt['confirm_spammers_report'] . '\');" />',
 				'class' => 'titlebg','titlebg',
 				'style' => 'text-align: right;',
 			),

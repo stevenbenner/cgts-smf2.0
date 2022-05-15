@@ -28,8 +28,8 @@ $txt['stopspammer_profilecheck'] = 'Check this member';
 $txt['stopspammer_limitexceded'] = 'You have exceded the check limit (5000 API queries per day).<br />You should wait until tomorrow to check again.';
 
 $txt['in_stop_forum_spam'] = 'In Stop Forum Spam Web:';
-$txt['spammers_checks'] = 'Check these Members';
-$txt['spammers_report'] = 'Report these Members';
+$txt['spammers_checks'] = 'Check Selected Members';
+$txt['spammers_report'] = 'Report Selected Members';
 $txt['confirm_spammers_checks'] = 'Are you sure you want to check the selected members?';
 $txt['confirm_spammers_report'] = 'Are you sure you want to report the selected members?\n\nThink that when you report a member to SFS they are marked as spammer all over the world\nand they won\\\'t be able to use any of the forums connected to SFS around the world.\n\nDo it only if you are completely sure they are spammers and if by any chance you make a mistake\ntell as soon as possible the mod\\\'s creator to correct the mistake inside the SFS database.';
 

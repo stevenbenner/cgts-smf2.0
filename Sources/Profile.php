@@ -329,8 +329,8 @@ function ModifyProfile($post_errors = array())
 					'enabled' => $cur_profile['id_group'] != 1 && !in_array(1, explode(',', $cur_profile['additional_groups'])),
 					'sc' => 'get',
 					'permission' => array(
-						'own' => array('profile_remove_any', 'profile_remove_own'),
-						'any' => array('profile_remove_any', 'moderate_forum'),
+						'own' => array(),
+						'any' => array('moderate_forum'),
 					),
 				),
 				'activateaccount' => array(
