@@ -323,6 +323,16 @@ function ModifyProfile($post_errors = array())
 						'any' => array('profile_remove_any'),
 					),
 				),
+				'checkmember' => array(
+					'label' => $txt['stopspammer_profilecheck'],
+					'custom_url' => $scripturl . '?action=admin;area=viewmembers;sa=query;params=' . base64_encode(serialize(array('mem_id' => $memID, 'types' => array('mem_id' => '=')))),
+					'enabled' => $cur_profile['id_group'] != 1 && !in_array(1, explode(',', $cur_profile['additional_groups'])),
+					'sc' => 'get',
+					'permission' => array(
+						'own' => array('profile_remove_any', 'profile_remove_own'),
+						'any' => array('profile_remove_any', 'moderate_forum'),
+					),
+				),
 				'activateaccount' => array(
 					'file' => 'Profile-Actions.php',
 					'function' => 'activateAccount',
