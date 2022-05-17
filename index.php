@@ -204,6 +204,21 @@ function smf_main()
 	// Load the current user's permissions.
 	loadPermissions();
 
+	// Before we do anything else with this user we check projecthoneypot to see if it's a spammer. MOD httpBL
+	// But do it only if we are not coming from the file warning.php
+	global $boardurl, $httpBL_warning;
+	if ($modSettings['httpBL_enable'] && !isset($httpBL_warning))
+	{
+		require_once($sourcedir . '/httpBL_Subs.php');
+		$response = httpBL_dnslookup($user_info['ip'], $modSettings['httpBL_honeyPot_key']);
+		if ($response)
+		{
+			$_SESSION['response'] = $response;
+			header('Location: '. $boardurl .'/warning.php');
+			exit();
+		}
+	}
+
 	// Attachments don't require the entire theme to be loaded.
 	if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'dlattach' && (!empty($modSettings['allow_guestAccess']) && $user_info['is_guest']))
 		detectBrowser();
@@ -297,6 +312,7 @@ function smf_main()
 		'groups' => array('Groups.php', 'Groups'),
 		'help' => array('Help.php', 'ShowHelp'),
 		'helpadmin' => array('Help.php', 'ShowAdminHelp'),
+		'httpBL' => array('httpBL_2_Config.php', 'httpBL_Admin'),
 		'im' => array('PersonalMessage.php', 'MessageMain'),
 		'jseditor' => array('Subs-Editor.php', 'EditorMain'),
 		'jsmodify' => array('Post.php', 'JavaScriptModify'),
