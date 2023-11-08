@@ -26,6 +26,7 @@ $cookiename = 'SMFCookie11';		# Name of the cookie to set for authentication.
 
 ########## Database Info ##########
 $db_type = 'mysql';
+$db_character_set = 'utf8';
 $db_server = 'localhost';
 $db_name = 'smf';
 $db_user = 'root';
