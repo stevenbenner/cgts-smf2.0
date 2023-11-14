@@ -1,4 +1,4 @@
 [submodule "Themes/Minimalistic_Theme_SMF2"]
 	path = Themes/Minimalistic_Theme_SMF2
-	url = git@github.com:stevenbenner/cgts-smf-min-theme.git
+	url = ../cgts-smf-min-theme.git
 	branch = master
