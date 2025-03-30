@@ -6,3 +6,9 @@ end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = false
+
+[*.md]
+insert_final_newline = true
+
+[{.editorconfig,.gitattributes,.gitignore,.gitmodules}]
+insert_final_newline = true
